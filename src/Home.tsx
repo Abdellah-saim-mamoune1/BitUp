@@ -1,6 +1,7 @@
 import  { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./assets/Logo.jpg";
+import BgImage from "./assets/BgHomeImage.jpg";
 export function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -103,35 +104,38 @@ export function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section
-        className="relative w-full h-[75vh] bg-cover bg-center flex items-center justify-center mt-16"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1600&q=80)",
-        }}
-      >
-     <div className="absolute inset-0 bg-gradient-to-t from-[#1a002b]/95 via-[#3b0066]/90 to-[#a517a5]/80"></div>
+   <section
+  className="relative w-full h-[80vh] bg-cover bg-center bg-no-repeat flex items-center justify-center mt-16"
+  style={{
+    backgroundImage: `url(${BgImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  {/* Softer gradient overlay */}
+  <div className="absolute inset-0 bg-gradient-to-t from-[#1a002b]/60 via-[#3b0066]/40 to-[#a517a5]/20"></div>
+
+  {/* Content */}
+  <motion.div
+    className="relative z-10 text-center text-white px-6 sm:px-10"
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1 }}
+  >
+    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-snug drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
+      Develop Your Skills in 8 Days
+    </h1>
+    <motion.button
+      className="bg-white text-[#a517a5] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-md"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      See The Workshops
+    </motion.button>
+  </motion.div>
+</section>
 
 
-
-        <motion.div
-          className="relative z-10 text-center text-white px-4"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <h1 className="text-3xl md:text-5xl font-extrabold mb-6 leading-snug drop-shadow-lg">
-            Develop Your Skills in 8 Days
-          </h1>
-          <motion.button
-            className="bg-white text-[#a517a5] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-md"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            See The Workshops
-          </motion.button>
-        </motion.div>
-      </section>
 
       {/* Workshops Section */}
       <section className="py-20 px-4 md:px-12 bg-purple-100 text-center">
@@ -170,7 +174,7 @@ export function Home() {
           ].map((workshop, i) => (
             <motion.div
               key={i}
-              className="bg-[#b955bd] shadow-lg rounded-xl p-6 hover:scale-[1.05] hover:shadow-2xl transition-transform"
+              className="bg-[#a041a3] shadow-lg rounded-xl p-6 hover:scale-[1.05] hover:shadow-2xl transition-transform"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
