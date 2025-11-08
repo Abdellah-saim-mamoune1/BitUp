@@ -154,7 +154,7 @@ export function Home() {
             Develop Your Skills in 8 Days
           </h1>
           <motion.button
-            className="text-white bg-[#a517a5] px-4 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-md"
+            className="text-white bg-[#a517a5] px-4 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] transition shadow-md"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={() =>
@@ -239,7 +239,7 @@ export function Home() {
           Join our Bootcamp and learn how to turn your skills into real-world projects.
         </motion.p>
         <motion.button
-          className="text-white bg-[#a517a5] px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg"
+          className="text-white bg-[#a517a5] px-8 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] transition shadow-lg"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => navigate("/register")}
