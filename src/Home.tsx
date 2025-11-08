@@ -104,11 +104,12 @@ export function Home() {
       </nav>
 
       {/* Hero Section */}
-<section
-  className="relative w-full h-[80vh] flex items-center justify-center mt-16 
-             bg-center bg-no-repeat sm:bg-cover sm:bg-center"
+   <section
+  className="relative w-full h-[80vh] bg-cover bg-center bg-no-repeat flex items-center justify-center mt-16"
   style={{
     backgroundImage: `url(${BgImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   }}
 >
   {/* Softer gradient overlay */}
