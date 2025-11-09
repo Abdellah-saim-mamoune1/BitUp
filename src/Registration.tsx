@@ -1,36 +1,72 @@
 import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
+export interface IRegistration {
+  fullName: string;
+  email: string;
+  discordUser: string;
+  bootcampIds: number[];
+  motivation: string;
+}
+
 export function Register() {
   const navigate = useNavigate();
 
-  const [selectedWorkshops, setSelectedWorkshops] = useState<string[]>([]);
- 
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
+  const [form, setForm] = useState<IRegistration>({
+    fullName: "",
+    email: "",
+    discordUser: "",
+    bootcampIds: [],
+    motivation: "",
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setPreviewUrl(reader.result as string);
-      reader.readAsDataURL(file);
-    } else {
-      setPreviewUrl(null);
-    }
+  });
+
+  
+  const [message, setMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  // --- Handle Input Changes ---
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Workshop checkbox
+  
+  // --- Workshop Checkbox ---
   const handleWorkshopChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setSelectedWorkshops((prev) =>
-      prev.includes(value) ? prev.filter((w) => w !== value) : [...prev, value]
-    );
+    setForm((prev) => {
+      const current = prev.bootcampIds.includes(value === "Frontend" ? 1 : 2)
+        ? prev.bootcampIds.filter((id) => id !== (value === "Frontend" ? 1 : 2))
+        : [...prev.bootcampIds, value === "Frontend" ? 1 : 2];
+      return { ...prev, bootcampIds: current };
+    });
   };
 
-  // Form submission
-  const handleSubmit = () => {
-    setMessage("Registration submitted!");
+  // --- Simulate API Call ---
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      // Simulated API endpoint
+      const response = await fetch("https://example.com/api/registrations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      // Fake success (since this is just a simulation)
+      if (!response.ok) throw new Error("Network error");
+
+      console.log("Submitted data:", form);
+      setMessage("✅ Registration submitted successfully!");
+    } catch (err) {
+      console.error(err);
+      setMessage("❌ Failed to submit registration. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -51,38 +87,34 @@ export function Register() {
 
         <div className="space-y-3 sm:space-y-4">
           {/* Inputs */}
-          {["Full Name","Discord User", "E-Mail"].map((placeholder) => (
-            <input
-              key={placeholder}
-              type={placeholder.includes("E-Mail") ? "email" : "text"}
-              placeholder={placeholder}
-              required
-              className="w-full px-3 sm:px-4 py-2 rounded-lg bg-gray-200 text-gray-800 focus:bg-gray-100 outline-none text-sm sm:text-base"
-            />
-          ))}
+          <input
+            name="fullName"
+            value={form.fullName}
+            onChange={handleChange}
+            placeholder="Full Name"
+            className="w-full px-3 sm:px-4 py-2 rounded-lg bg-gray-200 text-gray-800 focus:bg-gray-100 outline-none text-sm sm:text-base"
+          />
 
-          {/* File Upload */}
-          <div className="space-y-1 sm:space-y-2">
-            <label className="text-white text-xs sm:text-sm">
-              Your student card picture please
-            </label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="w-full text-white rounded-lg bg-gray-800/20 p-2 cursor-pointer text-xs sm:text-sm"
-            />
-            {previewUrl && (
-              <img
-                src={previewUrl}
-                alt="Preview"
-                className="max-h-28 sm:max-h-32 mt-2 rounded-lg shadow-lg"
-              />
-            )}
-          </div>
+          <input
+            name="discordUser"
+            value={form.discordUser}
+            onChange={handleChange}
+            placeholder="Discord User"
+            className="w-full px-3 sm:px-4 py-2 rounded-lg bg-gray-200 text-gray-800 focus:bg-gray-100 outline-none text-sm sm:text-base"
+          />
 
-          {/* Skill Level */}
-    
+          <input
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="E-Mail"
+            className="w-full px-3 sm:px-4 py-2 rounded-lg bg-gray-200 text-gray-800 focus:bg-gray-100 outline-none text-sm sm:text-base"
+          />
+
+          
+          
+          {/* Bootcamp Select */}
           <div className="space-y-1 sm:space-y-2">
             <h2 className="text-white text-xs sm:text-sm font-medium">Choose your Bootcamp</h2>
             <ul className="grid grid-cols-2 gap-1 sm:gap-2 list-none">
@@ -92,7 +124,11 @@ export function Register() {
                     <input
                       type="checkbox"
                       value={ws}
-                      checked={selectedWorkshops.includes(ws)}
+                      checked={
+                        ws === "Frontend"
+                          ? form.bootcampIds.includes(1)
+                          : form.bootcampIds.includes(2)
+                      }
                       onChange={handleWorkshopChange}
                       className="w-3 sm:w-4 h-3 sm:h-4"
                     />
@@ -103,9 +139,12 @@ export function Register() {
             </ul>
           </div>
 
-          {/* Textarea */}
+          {/* Motivation */}
           <textarea
-            placeholder="Why do you want to participate"
+            name="motivation"
+            value={form.motivation}
+            onChange={handleChange}
+            placeholder="Why do you want to participate?"
             className="w-full px-3 sm:px-4 py-2 rounded-lg bg-gray-200 text-gray-800 focus:bg-gray-100 outline-none resize-vertical min-h-[60px] sm:min-h-[80px] text-xs sm:text-sm"
           />
         </div>
@@ -113,20 +152,21 @@ export function Register() {
         {/* Submit */}
         <button
           onClick={handleSubmit}
-          className="mt-4 w-full py-2 sm:py-3 text-white font-bold rounded-lg transition-all bg-gradient-to-r from-purple-500 to-indigo-700 shadow-lg hover:scale-105 text-sm sm:text-base"
+          disabled={loading}
+          className="mt-4 w-full py-2 sm:py-3 text-white font-bold rounded-lg transition-all bg-gradient-to-r from-purple-500 to-indigo-700 shadow-lg hover:scale-105 text-sm sm:text-base disabled:opacity-60"
         >
-          Confirm Registration
+          {loading ? "Submitting..." : "Confirm Registration"}
         </button>
       </div>
 
-      {/* Success Popup */}
+      {/* Popup */}
       {message && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 px-2">
-          <div className="bg-white text-gray-900 p-4 sm:p-6 rounded-lg  sm:min-w-[360px] text-center shadow-lg">
-            <p className="text-xl font-bold mb-3 sm:mb-4 ">{message}</p>
+          <div className="bg-white text-gray-900 p-4 sm:p-6 rounded-lg sm:min-w-[360px] text-center shadow-lg">
+            <p className="text-xl font-bold mb-3 sm:mb-4">{message}</p>
             <button
               onClick={() => setMessage(null)}
-              className="bg-green-600 text-white px-4 py-2 sm:px-4 py-1 sm:py-2 rounded-lg font-bold hover:scale-105 transition text-xs sm:text-sm"
+              className="bg-green-600 text-white px-4 py-2 sm:px-4 sm:py-2 rounded-lg font-bold hover:scale-105 transition text-xs sm:text-sm"
             >
               OK
             </button>
