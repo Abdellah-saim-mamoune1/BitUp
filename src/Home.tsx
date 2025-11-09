@@ -3,94 +3,81 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Logo from "./assets/Logo.png";
 import BgImage from "./assets/BgHomeImage.jpg";
+import {
+  Code,
+  Palette,
+  PenTool,
+  MonitorSmartphone,
+  Layers,
+  Github,
+  Database,
+  Server,
+  Terminal,
+} from "lucide-react";
 
-// Icons
-import { Code, Palette, PenTool, MonitorSmartphone, Layers, Github } from "lucide-react";
-
+import { Code2,Instagram, Mail, MessageCircle } from "lucide-react";
+import { Cpu } from "lucide-react";
 export function Home() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-  const workshopsRef = useRef<HTMLElement | null>(null);
-  const contactRef = useRef<HTMLElement | null>(null);
+  const workshopsRef = useRef<HTMLElement >(null);
+  const contactRef = useRef<HTMLElement >(null);
+
+  const scrollTo = (ref: React.RefObject<HTMLElement|null>) =>
+    ref.current?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <div className="min-h-screen flex flex-col bg-purple-50 text-purple-900">
+    <div className="min-h-screen flex flex-col bg-purple-50 text-purple-900 scroll-smooth">
       {/* Navbar */}
-      <nav className="flex justify-between items-center px-4 bg-white shadow-md fixed w-full top-0 z-50">
+      <nav className="flex justify-between items-center px-6 bg-white shadow-sm sticky w-full top-0 z-50 border-b border-purple-100 backdrop-blur-md bg-opacity-90">
+        {/* Logo */}
         <motion.div
           className="flex items-center space-x-2"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
         >
           <img
             src={Logo}
-            alt="Logo"
-            className="w-20 h-20 cursor-pointer " onClick={()=>navigate("/")}
+            alt="Bootcamp Logo"
+            className="w-16 h-16 cursor-pointer"
+            onClick={() => navigate("/")}
           />
+         
         </motion.div>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-6 items-center text-black font-medium">
-          <motion.li
-            className="hover:text-[#a517a5] transition cursor-pointer font-semibold"
-            whileHover={{ scale: 1.1 }}
-            onClick={() => navigate("/")}
-          >
-            Home
-          </motion.li>
-
-          <motion.li
-            className="hover:text-[#a517a5] transition cursor-pointer"
-            whileHover={{ scale: 1.1 }}
-            onClick={() => workshopsRef.current?.scrollIntoView({ behavior: "smooth" })}
-          >
-            Workshops
-          </motion.li>
-
-          <motion.li
-            className="hover:text-[#a517a5] transition cursor-pointer"
-            whileHover={{ scale: 1.1 }}
-            onClick={() => contactRef.current?.scrollIntoView({ behavior: "smooth" })}
-          >
-            Contact Us
-          </motion.li>
-
-          <motion.li whileHover={{ scale: 1.1 }}>
-            <button onClick={() =>navigate("/register")} className="bg-[#a517a5] text-white px-2 py-2 rounded-lg hover:bg-[#8c0e90] transition">
+        <ul className="hidden md:flex gap-8 items-center text-gray-800 font-medium">
+          {["Home", "Workshops", "Contact"].map((item, i) => (
+            <motion.li
+              key={i}
+              className="hover:text-[#a517a5] transition cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              onClick={() => {
+                if (item === "Workshops") scrollTo(workshopsRef);
+                else if (item === "Contact") scrollTo(contactRef);
+                else navigate("/");
+              }}
+            >
+              {item}
+            </motion.li>
+          ))}
+          <motion.li whileHover={{ scale: 1.05 }}>
+            <button
+              onClick={() => navigate("/register")}
+              className="bg-[#a517a5] text-white px-4 py-2 rounded-lg hover:bg-[#8c0e90] transition font-semibold"
+            >
               Register
-            </button >
+            </button>
           </motion.li>
         </ul>
 
-        {/* Mobile Button */}
+        {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden rounded-lg text-black hover:bg-[#8c0e90] transition"
+          className="md:hidden rounded-lg text-gray-800 hover:text-[#a517a5] transition"
+          aria-label="Toggle Menu"
         >
-          {menuOpen ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              className="w-6 h-6"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          )}
+          {menuOpen ? "✕" : "☰"}
         </button>
 
         {/* Mobile Menu */}
@@ -101,21 +88,17 @@ export function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="absolute top-16 left-0 w-full bg-white shadow-lg flex flex-col items-center gap-4 py-4 font-medium text-gray-800 md:hidden"
+              className="absolute top-20 left-0 w-full bg-white border-t border-gray-200 flex flex-col items-center gap-4 py-4 font-medium text-gray-800 md:hidden shadow-lg"
             >
-              {["Home", "Workshops", "Contact Us"].map((item, i) => (
+              {["Home", "Workshops", "Contact"].map((item, i) => (
                 <button
                   key={i}
-                  className="hover:text-[#a517a5] transition"
+                  className="hover:text-[#a517a5] transition text-lg"
                   onClick={() => {
                     setMenuOpen(false);
-                    if (item === "Workshops") {
-                      workshopsRef.current?.scrollIntoView({ behavior: "smooth" });
-                    } else if (item === "Contact Us") {
-                      contactRef.current?.scrollIntoView({ behavior: "smooth" });
-                    } else {
-                      navigate("/");
-                    }
+                    if (item === "Workshops") scrollTo(workshopsRef);
+                    else if (item === "Contact") scrollTo(contactRef);
+                    else navigate("/");
                   }}
                 >
                   {item}
@@ -126,7 +109,7 @@ export function Home() {
                   setMenuOpen(false);
                   navigate("/register");
                 }}
-                className="bg-[#a517a5] text-white px-4 py-2 rounded-lg hover:bg-[#8c0e90] transition"
+                className="bg-[#a517a5] text-white px-6 py-2 rounded-lg hover:bg-[#8c0e90] transition font-semibold"
               >
                 Register
               </button>
@@ -137,31 +120,33 @@ export function Home() {
 
       {/* Hero Section */}
       <section
-        className="relative w-full h-[80vh] flex items-center justify-center mt-16 overflow-hidden"
+        className="flex items-center justify-center text-center h-screen overflow-hidden"
         style={{
           backgroundImage: `url(${BgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
+        <div className=" inset-0 bg-black/50" />
         <motion.div
-          className="relative z-10 text-center text-white px-6 sm:px-10"
-          initial={{ opacity: 0, y: 30 }}
+          className="relative z-10 text-white px-6 sm:px-10 max-w-3xl"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.8 }}
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-snug drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
-            Develop Your Skills in 8 Days
+          <h1 className="text-3xl sm:text-5xl font-extrabold leading-tight mb-6 drop-shadow-xl">
+            Choose Your Path — Frontend or Backend
           </h1>
+          <p className="text-sm sm:text-xl text-white/90 mb-8">
+            Master full-stack development in our immersive 8-day bootcamp experience.
+          </p>
           <motion.button
-            className="text-white bg-[#a517a5] px-4 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] transition shadow-md"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() =>
-              workshopsRef.current?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={() => scrollTo(workshopsRef)}
+            className="bg-[#a517a5] hover:bg-[#8c0e90] text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.96 }}
           >
-            See The Workshops
+            Explore Bootcamps
           </motion.button>
         </motion.div>
       </section>
@@ -169,107 +154,129 @@ export function Home() {
       {/* Workshops Section */}
       <section
         ref={workshopsRef}
-        className="py-20 px-4 md:px-12 bg-purple-100 text-center"
+        className="py-24 px-6 md:px-12 bg-purple-100 text-center"
       >
         <motion.h2
-          className="text-2xl md:text-4xl font-bold text-black mb-4"
+          className="text-3xl md:text-4xl font-bold text-[#3d1f66] mb-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Our Workshops
+          Bootcamp Tracks
         </motion.h2>
-        <motion.p
-          className="text-gray-700 font-medium mb-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        >
-          Discover the skills you'll learn
-        </motion.p>
+        <p className="text-gray-700 mb-16 text-lg max-w-2xl mx-auto">
+          Choose between our specialized Frontend or Backend bootcamps — each packed with practical workshops to make you industry-ready.
+        </p>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto  sm:px-8 md:px-0">
-  {[
-    { title: "HTML", desc: "Build the structure of web pages.", icon: <Code size={48} /> },
-    { title: "CSS", desc: "Style and layout your websites beautifully.", icon: <Layers size={48} /> },
-    { title: "JavaScript", desc: "Make your pages dynamic and interactive.", icon: <MonitorSmartphone size={48} /> },
-    { title: "UI/UX Design", desc: "Design seamless and engaging experiences.", icon: <PenTool size={48} /> },
-    { title: "Graphic Design", desc: "Craft powerful visuals and identities.", icon: <Palette size={48} /> },
-    { title: "Tools (GitHub)", desc: "Collaborate and manage versions easily.", icon: <Github size={48} /> },
-  ].map((workshop, i) => (
-    <motion.div
-      key={i}
-      className="bg-gradient-to-br from-[#a041a3] to-[#8a2e8c] shadow-xl rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center hover:scale-[1.03] hover:shadow-2xl transition-all duration-300"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: i * 0.15, duration: 0.6 }}
-    >
-      <div className="flex flex-col items-center mb-4 text-white">
-        <div className="mb-3">{workshop.icon}</div>
-        <h3 className="text-xl sm:text-2xl font-semibold">{workshop.title}</h3>
-      </div>
-      <p className="text-white/90 text-sm sm:text-base leading-relaxed max-w-xs">
-        {workshop.desc}
-      </p>
-    </motion.div>
-  ))}
-</div>
+        <div className="space-y-24">
+          {/* Frontend Bootcamp */}
+          <div>
+            <h3 className="text-2xl flex gap-2 items-center justify-center md:text-3xl font-bold text-[#a517a5] mb-10">
+              <Code2/> Frontend
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {[
+                { title: "HTML", desc: "Structure web content efficiently.", icon: <Code size={42} /> },
+                { title: "CSS", desc: "Design responsive and elegant layouts.", icon: <Layers size={42} /> },
+                { title: "JavaScript", desc: "Bring interactivity and motion to life.", icon: <MonitorSmartphone size={42} /> },
+                { title: "UI/UX", desc: "Craft user-friendly interfaces.", icon: <PenTool size={42} /> },
+                { title: "Graphic Design", desc: "Visual storytelling through design.", icon: <Palette size={42} /> },
+                { title: "GitHub", desc: "Version control and teamwork mastery.", icon: <Github size={42} /> },
+              ].map((w, i) => (
+                <motion.div
+                  key={i}
+                  className="bg-gradient-to-br from-[#a041a3] to-[#8a2e8c] text-white rounded-2xl shadow-lg p-6 sm:p-8 hover:scale-[1.04] transition"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="mb-3">{w.icon}</div>
+                    <h4 className="text-xl font-semibold mb-2">{w.title}</h4>
+                    <p className="text-white/90 text-sm">{w.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
 
+          {/* Backend Bootcamp */}
+          <div>
+            <h3 className="flex gap-2 items-center justify-center text-2xl md:text-3xl font-bold text-[#3d1f66] mb-10">
+              <Cpu/> Backend
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {[
+                { title: "Node.js", desc: "Create high-performance backend systems.", icon: <Server size={42} /> },
+                { title: "Databases", desc: "Manage and query data effectively.", icon: <Database size={42} /> },
+                { title: "APIs", desc: "Build scalable RESTful services.", icon: <Terminal size={42} /> },
+                { title: "Authentication", desc: "Secure user data and sessions.", icon: <Code size={42} /> },
+                { title: "Deployment", desc: "Launch your apps to production.", icon: <Github size={42} /> },
+                { title: "Best Practices", desc: "Clean code & maintainable architecture.", icon: <Layers size={42} /> },
+              ].map((w, i) => (
+                <motion.div
+                  key={i}
+                  className="bg-gradient-to-br from-[#3d1f66] to-[#2a1548] text-white rounded-2xl shadow-lg p-6 sm:p-8 hover:scale-[1.04] transition"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                >
+                  <div className="flex flex-col items-center">
+                    <div className="mb-3">{w.icon}</div>
+                    <h4 className="text-xl font-semibold mb-2">{w.title}</h4>
+                    <p className="text-white/90 text-sm">{w.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Registration Section */}
-      <section className="pt-2 pb-10 text-black px-6 text-center bg-purple-100">
+      {/* Call to Action */}
+      <section className="py-24 text-center bg-gradient-to-br from-purple-200 to-purple-300">
         <motion.h2
-          className="text-3xl md:text-4xl font-bold mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          Ready To Get Started?
-        </motion.h2>
-        <motion.p
-          className="text-lg md:text-xl font-semibold mb-8 max-w-2xl mx-auto"
+          className="text-3xl md:text-4xl font-bold text-[#3d1f66] mb-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          transition={{ duration: 0.6 }}
         >
-          Join our Bootcamp and learn how to turn your skills into real-world projects.
-        </motion.p>
+          Ready to Start Your Coding Journey?
+        </motion.h2>
+        <p className="text-gray-700 mb-10 max-w-2xl mx-auto text-lg">
+          Pick your bootcamp, develop real projects, and become a professional developer in just 8 days!
+        </p>
         <motion.button
-          className="text-white bg-[#a517a5] px-4 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] transition shadow-lg"
+          className="bg-[#a517a5] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] shadow-lg transition"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => navigate("/register")}
         >
-          REGISTER NOW!
+          Register Now
         </motion.button>
       </section>
 
-      {/* Footer (Contact Section) */}
-      <motion.footer
+      {/* Footer */}
+      <footer
         ref={contactRef}
-        className="bg-purple-100 text-black text-center py-10 px-6 border-t border-gray-400"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
+        className="bg-white text-black text-center py-12 px-6 border-t border-gray-200"
       >
-        <h2 className="text-2xl font-bold mb-6">Contact Us</h2>
-
-        <div className="flex flex-wrap justify-center gap-4 text-sm md:text-lg font-semibold mb-6">
-          <a href="mailto:example@email.com" className="hover:text-purple-400 transition">
-            Email
+        <h2 className="text-2xl font-bold mb-6 text-[#3d1f66]">Contact Us</h2>
+        <div className="flex flex-wrap justify-center gap-6 text-base md:text-lg font-medium">
+          <a href="mailto:info@devbootcamp.com" className="flex gap-2 hover:text-[#a517a5] transition">
+            <MessageCircle/> Discord
           </a>
-          <a href="https://instagram.com" target="_blank" className="hover:text-purple-400 transition">
-            Instagram
+          <a href="https://instagram.com" target="_blank" className="hover:text-[#a517a5] transition flex gap-2">
+            <Instagram /> Instagram
           </a>
-          <a href="https://discord.com" target="_blank" className="hover:text-purple-400 transition">
-            Discord
+          <a href="https://discord.com" target="_blank" className="flex gap-2 hover:text-[#a517a5] transition">
+            <Mail/> Email
           </a>
         </div>
-      </motion.footer>
+        <p className="text-gray-500 mt-8 text-sm">© 2025 DevBootcamp. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
