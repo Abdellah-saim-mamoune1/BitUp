@@ -122,11 +122,11 @@ export function Register() {
       {/* Success Popup */}
       {message && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 px-2">
-          <div className="bg-white text-gray-900 p-4 sm:p-6 rounded-lg min-w-[220px] sm:min-w-[260px] text-center shadow-lg">
-            <p className="font-bold mb-3 sm:mb-4 text-sm sm:text-base">{message}</p>
+          <div className="bg-white text-gray-900 p-4 sm:p-6 rounded-lg  sm:min-w-[360px] text-center shadow-lg">
+            <p className="text-xl font-bold mb-3 sm:mb-4 ">{message}</p>
             <button
               onClick={() => setMessage(null)}
-              className="bg-green-500 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg font-bold hover:scale-105 transition text-xs sm:text-sm"
+              className="bg-green-600 text-white px-4 py-2 sm:px-4 py-1 sm:py-2 rounded-lg font-bold hover:scale-105 transition text-xs sm:text-sm"
             >
               OK
             </button>
