@@ -6,14 +6,11 @@ export function Register() {
 
   const [skillLevel, setSkillLevel] = useState<string>("");
   const [selectedWorkshops, setSelectedWorkshops] = useState<string[]>([]);
-  const [studentCard, setStudentCard] = useState<File | null>(null);
+ 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-
-  // File upload preview
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
-    setStudentCard(file);
 
     if (file) {
       const reader = new FileReader();
