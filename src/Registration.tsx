@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 export function Register() {
   const navigate = useNavigate();
 
-  const [skillLevel, setSkillLevel] = useState<string>("");
   const [selectedWorkshops, setSelectedWorkshops] = useState<string[]>([]);
  
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
