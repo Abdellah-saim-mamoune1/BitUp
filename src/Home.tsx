@@ -57,9 +57,9 @@ export function Home() {
           </motion.li>
 
           <motion.li whileHover={{ scale: 1.1 }}>
-            <button className="bg-[#a517a5] text-white px-2 py-2 rounded-lg hover:bg-[#8c0e90] transition">
+            <button onClick={() =>navigate("/register")} className="bg-[#a517a5] text-white px-2 py-2 rounded-lg hover:bg-[#8c0e90] transition">
               Register
-            </button>
+            </button >
           </motion.li>
         </ul>
 
