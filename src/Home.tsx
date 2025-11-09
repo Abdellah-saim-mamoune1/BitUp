@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Logo from "./assets/Logo.png";
@@ -13,49 +13,21 @@ export function Home() {
   const workshopsRef = useRef<HTMLElement | null>(null);
   const contactRef = useRef<HTMLElement | null>(null);
 
-  // Countdown state
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  // Set your registration deadline here
-  const registrationDeadline = new Date("2025-11-15T23:59:59");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      const diff = registrationDeadline.getTime() - now.getTime();
-
-      if (diff <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        clearInterval(interval);
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      setTimeLeft({ days, hours, minutes, seconds });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="min-h-screen flex flex-col bg-purple-50 text-purple-900">
       {/* Navbar */}
       <nav className="flex justify-between items-center px-4 bg-white shadow-md fixed w-full top-0 z-50">
         <motion.div
-          className="flex items-center "
+          className="flex items-center space-x-2"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-  
-  <img src={Logo} alt="Logo" className="w-20 h-20 cursor-pointer" onClick={()=>navigate("/")} />
-
-
-
+          <img
+            src={Logo}
+            alt="Logo"
+            className="w-20 h-20 cursor-pointer " onClick={()=>navigate("/")}
+          />
         </motion.div>
 
         {/* Desktop Menu */}
@@ -85,7 +57,7 @@ export function Home() {
           </motion.li>
 
           <motion.li whileHover={{ scale: 1.1 }}>
-            <button className="bg-[#a517a5] text-white px-4 py-2 rounded-lg hover:bg-[#8c0e90] transition">
+            <button className="bg-[#a517a5] text-white px-2 py-2 rounded-lg hover:bg-[#8c0e90] transition">
               Register
             </button>
           </motion.li>
@@ -164,58 +136,32 @@ export function Home() {
       </nav>
 
       {/* Hero Section */}
-     <section
-  className="relative w-full h-[85vh] sm:h-[80vh] flex flex-col items-center justify-center mt-16 overflow-hidden text-center bg-cover bg-center bg-no-repeat"
-  style={{
-    backgroundImage: `url(${BgImage})`,
-  }}
->
-
-        <div className="absolute inset-0 bg-black/40" />
+      <section
+        className="relative w-full h-[80vh] flex items-center justify-center mt-16 overflow-hidden"
+        style={{
+          backgroundImage: `url(${BgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <motion.div
-          className="relative z-10 text-white px-6 sm:px-10"
+          className="relative z-10 text-center text-white px-6 sm:px-10"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-10 leading-snug drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
-            Develop Your Skills in Our Bootcamp
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 leading-snug drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
+            Develop Your Skills in 8 Days
           </h1>
-
-          {/* Countdown */}
-          <motion.div
-            className="flex justify-center gap-4 sm:gap-6 text-white font-bold  sm:text-2xl mb-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          >
-            <div className="bg-white/20 px-4 py-2 rounded-xl backdrop-blur-sm shadow-lg">
-              <span className="block text-2xl sm:text-4xl">{timeLeft.days}</span>
-              <span className="text-sm sm:text-base opacity-80">Days</span>
-            </div>
-            <div className="bg-white/20 px-4 py-2 rounded-xl backdrop-blur-sm shadow-lg">
-              <span className="block text-2xl sm:text-4xl">{timeLeft.hours}</span>
-              <span className="text-sm sm:text-base opacity-80">Hours</span>
-            </div>
-            <div className="bg-white/20 px-4 py-2 rounded-xl backdrop-blur-sm shadow-lg">
-              <span className="block text-2xl sm:text-4xl">{timeLeft.minutes}</span>
-              <span className="text-sm sm:text-base opacity-80">Minutes</span>
-            </div>
-            <div className="bg-white/20 px-4 py-2 rounded-xl backdrop-blur-sm shadow-lg">
-              <span className="block text-2xl sm:text-4xl">{timeLeft.seconds}</span>
-              <span className="text-sm sm:text-base opacity-80">Seconds</span>
-            </div>
-          </motion.div>
-
           <motion.button
-            className="text-white bg-[#a517a5] px-6 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] transition shadow-md"
+            className="text-white bg-[#a517a5] px-4 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] transition shadow-md"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={() =>
               workshopsRef.current?.scrollIntoView({ behavior: "smooth" })
             }
           >
-            Discover Our Workshops
+            See The Workshops
           </motion.button>
         </motion.div>
       </section>
@@ -243,39 +189,66 @@ export function Home() {
           Discover the skills you'll learn
         </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto sm:px-8 md:px-0">
-          {[
-            { title: "HTML", desc: "Build the structure of web pages.", icon: <Code size={48} /> },
-            { title: "CSS", desc: "Style and layout your websites beautifully.", icon: <Layers size={48} /> },
-            { title: "JavaScript", desc: "Make your pages dynamic and interactive.", icon: <MonitorSmartphone size={48} /> },
-            { title: "UI/UX Design", desc: "Design seamless and engaging experiences.", icon: <PenTool size={48} /> },
-            { title: "Graphic Design", desc: "Craft powerful visuals and identities.", icon: <Palette size={48} /> },
-            { title: "Tools (GitHub)", desc: "Collaborate and manage versions easily.", icon: <Github size={48} /> },
-          ].map((workshop, i) => (
-            <motion.div
-              key={i}
-              className="bg-gradient-to-br from-[#a041a3] to-[#8a2e8c] shadow-xl rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center hover:scale-[1.03] hover:shadow-2xl transition-all duration-300"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15, duration: 0.6 }}
-            >
-              <div className="flex flex-col items-center mb-4 text-white">
-                <div className="mb-3">{workshop.icon}</div>
-                <h3 className="text-xl sm:text-2xl font-semibold">{workshop.title}</h3>
-              </div>
-              <p className="text-white/90 text-sm sm:text-base leading-relaxed max-w-xs">
-                {workshop.desc}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto  sm:px-8 md:px-0">
+  {[
+    { title: "HTML", desc: "Build the structure of web pages.", icon: <Code size={48} /> },
+    { title: "CSS", desc: "Style and layout your websites beautifully.", icon: <Layers size={48} /> },
+    { title: "JavaScript", desc: "Make your pages dynamic and interactive.", icon: <MonitorSmartphone size={48} /> },
+    { title: "UI/UX Design", desc: "Design seamless and engaging experiences.", icon: <PenTool size={48} /> },
+    { title: "Graphic Design", desc: "Craft powerful visuals and identities.", icon: <Palette size={48} /> },
+    { title: "Tools (GitHub)", desc: "Collaborate and manage versions easily.", icon: <Github size={48} /> },
+  ].map((workshop, i) => (
+    <motion.div
+      key={i}
+      className="bg-gradient-to-br from-[#a041a3] to-[#8a2e8c] shadow-xl rounded-2xl p-6 sm:p-8 flex flex-col items-center text-center hover:scale-[1.03] hover:shadow-2xl transition-all duration-300"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: i * 0.15, duration: 0.6 }}
+    >
+      <div className="flex flex-col items-center mb-4 text-white">
+        <div className="mb-3">{workshop.icon}</div>
+        <h3 className="text-xl sm:text-2xl font-semibold">{workshop.title}</h3>
+      </div>
+      <p className="text-white/90 text-sm sm:text-base leading-relaxed max-w-xs">
+        {workshop.desc}
+      </p>
+    </motion.div>
+  ))}
+</div>
+
       </section>
 
+      {/* Registration Section */}
+      <section className="pt-2 pb-10 text-black px-6 text-center bg-purple-100">
+        <motion.h2
+          className="text-3xl md:text-4xl font-bold mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          Ready To Get Started?
+        </motion.h2>
+        <motion.p
+          className="text-lg md:text-xl font-semibold mb-8 max-w-2xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
+          Join our Bootcamp and learn how to turn your skills into real-world projects.
+        </motion.p>
+        <motion.button
+          className="text-white bg-[#a517a5] px-4 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] transition shadow-lg"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate("/register")}
+        >
+          REGISTER NOW!
+        </motion.button>
+      </section>
 
-    {/* Registration Section */} <section className="pt-2 pb-10 text-black px-6 text-center bg-purple-100"> <motion.h2 className="text-3xl md:text-4xl font-bold mb-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} > Ready To Get Started? </motion.h2> <motion.p className="text-lg md:text-xl font-semibold mb-8 max-w-2xl mx-auto" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 0.3, duration: 0.6 }} > Join our Bootcamp and learn how to turn your skills into real-world projects. </motion.p> <motion.button className="text-white bg-[#a517a5] px-8 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] transition shadow-lg" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} onClick={() => navigate("/register")} > REGISTER NOW! </motion.button> </section>
-
-      {/* Footer */}
+      {/* Footer (Contact Section) */}
       <motion.footer
         ref={contactRef}
         className="bg-purple-100 text-black text-center py-10 px-6 border-t border-gray-400"
@@ -284,6 +257,7 @@ export function Home() {
         transition={{ duration: 0.8 }}
       >
         <h2 className="text-2xl font-bold mb-6">Contact Us</h2>
+
         <div className="flex flex-wrap justify-center gap-4 text-sm md:text-lg font-semibold mb-6">
           <a href="mailto:example@email.com" className="hover:text-purple-400 transition">
             Email
