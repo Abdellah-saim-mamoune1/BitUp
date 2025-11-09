@@ -164,14 +164,13 @@ export function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section
-        className="relative w-full h-[80vh] flex flex-col items-center justify-center mt-16 overflow-hidden text-center"
-        style={{
-          backgroundImage: `url(${BgImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+     <section
+  className="relative w-full h-[85vh] sm:h-[80vh] flex flex-col items-center justify-center mt-16 overflow-hidden text-center bg-cover bg-center bg-no-repeat"
+  style={{
+    backgroundImage: `url(${BgImage})`,
+  }}
+>
+
         <div className="absolute inset-0 bg-black/40" />
         <motion.div
           className="relative z-10 text-white px-6 sm:px-10"
