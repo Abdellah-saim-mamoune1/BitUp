@@ -52,7 +52,7 @@ export function Register() {
 
         <div className="space-y-3 sm:space-y-4">
           {/* Inputs */}
-          {["First Name*", "Last Name*", "E-Mail*", "City*"].map((placeholder) => (
+          {["Full Name","Discord User", "E-Mail"].map((placeholder) => (
             <input
               key={placeholder}
               type={placeholder.includes("E-Mail") ? "email" : "text"}
@@ -83,38 +83,11 @@ export function Register() {
           </div>
 
           {/* Skill Level */}
+    
           <div className="space-y-1 sm:space-y-2">
-            <label className="text-white text-xs sm:text-sm block">Web skill level:</label>
-            <div className="flex flex-col sm:flex-row gap-2 sm:gap-2">
-              {["beginner", "intermediate", "advanced"].map((level) => (
-                <label key={level} className="flex-1 relative cursor-pointer">
-                  <input
-                    type="radio"
-                    name="skill"
-                    value={level}
-                    checked={skillLevel === level}
-                    onChange={() => setSkillLevel(level)}
-                    className="hidden"
-                  />
-                  <span
-                    className={`block text-center py-1 sm:py-2 px-1 sm:px-2 rounded-full border border-white/30 transition-all text-xs sm:text-sm ${
-                      skillLevel === level
-                        ? "bg-white/30 transform -translate-y-0.5 scale-105 shadow-lg"
-                        : "bg-white/10"
-                    } text-white`}
-                  >
-                    {level.charAt(0).toUpperCase() + level.slice(1)}
-                  </span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Workshops */}
-          <div className="space-y-1 sm:space-y-2">
-            <h2 className="text-white text-xs sm:text-sm font-medium">Choose your workshops</h2>
+            <h2 className="text-white text-xs sm:text-sm font-medium">Choose your Bootcamp</h2>
             <ul className="grid grid-cols-2 gap-1 sm:gap-2 list-none">
-              {["HTML", "CSS", "JavaScript", "UI/UX", "Graphic", "Tools"].map((ws) => (
+              {["Frontend", "Backend"].map((ws) => (
                 <li key={ws}>
                   <label className="flex items-center gap-1 sm:gap-2 p-1 sm:p-2 bg-white/10 rounded-lg cursor-pointer hover:bg-white/20 transition text-xs sm:text-sm">
                     <input

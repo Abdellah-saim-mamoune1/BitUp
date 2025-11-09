@@ -88,7 +88,7 @@ export function Home() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              className="absolute top-20 left-0 w-full bg-white border-t border-gray-200 flex flex-col items-center gap-4 py-4 font-medium text-gray-800 md:hidden shadow-lg"
+              className="absolute top-15 left-0 w-full bg-white border-t border-gray-200 flex flex-col items-center gap-4 py-4 font-medium text-gray-800 md:hidden shadow-lg"
             >
               {["Home", "Workshops", "Contact"].map((item, i) => (
                 <button
