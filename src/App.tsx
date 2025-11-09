@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./Home";
-import "./app.css"
-import { Register } from "./register"
-
+import "./app.css";
+import { Register } from "./Registration";
 function App() {
 
   return (
@@ -14,8 +13,6 @@ function App() {
              <Route path="/register" element={<Register />} />
           </Routes>
         </div>
-    
-    
     </Router>
   );
 }
