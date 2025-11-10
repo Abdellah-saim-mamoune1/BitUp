@@ -5,7 +5,6 @@ import Logo from "./assets/Logo.png";
 import BgImage from "./assets/BgHomeImage.jpg";
 import {
   Code,
-  Palette,
   PenTool,
   MonitorSmartphone,
   Layers,
@@ -13,8 +12,9 @@ import {
   Database,
   Server,
   Terminal,
+  X
 } from "lucide-react";
-
+import { Menu } from "lucide-react";
 import { Code2,Instagram, Mail, MessageCircle } from "lucide-react";
 import { Cpu } from "lucide-react";
 export function Home() {
@@ -74,10 +74,10 @@ export function Home() {
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden rounded-lg text-gray-800 hover:text-[#a517a5] transition"
+          className="md:hidden rounded-lg text-xl text-gray-800 hover:text-[#a517a5] transition"
           aria-label="Toggle Menu"
         >
-          {menuOpen ? "✕" : "☰"}
+          {menuOpen ? <X size={34}/>: <Menu size={34}/>}
         </button>
 
         {/* Mobile Menu */}
@@ -180,7 +180,7 @@ export function Home() {
                 { title: "CSS", desc: "Design responsive and elegant layouts.", icon: <Layers size={42} /> },
                 { title: "JavaScript", desc: "Bring interactivity and motion to life.", icon: <MonitorSmartphone size={42} /> },
                 { title: "UI/UX", desc: "Craft user-friendly interfaces.", icon: <PenTool size={42} /> },
-                { title: "Graphic Design", desc: "Visual storytelling through design.", icon: <Palette size={42} /> },
+            
                 { title: "GitHub", desc: "Version control and teamwork mastery.", icon: <Github size={42} /> },
               ].map((w, i) => (
                 <motion.div
