@@ -2,7 +2,10 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Logo from "./assets/Logo.png";
-import BgImage from "./assets/BgHomeImage.jpg";
+import BgPc from "./assets/BgPC.png";
+import BgTablet from "./assets/BgTablet.png";
+import BgPhone from "./assets/BgPhone.png";
+
 import {
   Code,
   PenTool,
@@ -64,7 +67,7 @@ export function Home() {
           <motion.li whileHover={{ scale: 1.05 }}>
             <button
               onClick={() => navigate("/register")}
-              className="bg-[#a517a5] text-white px-4 py-2 rounded-lg hover:bg-[#8c0e90] transition font-semibold"
+              className="bg-[#FB0EC0] text-white px-4 py-2 rounded-lg hover:bg-[#8c0e90] transition font-semibold"
             >
               Register
             </button>
@@ -109,7 +112,7 @@ export function Home() {
                   setMenuOpen(false);
                   navigate("/register");
                 }}
-                className="bg-[#a517a5] text-white px-6 py-2 rounded-lg hover:bg-[#8c0e90] transition font-semibold"
+                className="bg-[#FB0EC0] text-white px-6 py-2 rounded-lg hover:bg-[#8c0e90] transition font-semibold"
               >
                 Register
               </button>
@@ -119,37 +122,48 @@ export function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section
-        className="flex items-center justify-center text-center h-screen overflow-hidden"
-        style={{
-          backgroundImage: `url(${BgImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className=" inset-0 bg-black/50" />
-        <motion.div
-          className="relative z-10 text-white px-6 sm:px-10 max-w-3xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h1 className="text-3xl sm:text-5xl font-extrabold leading-tight mb-6 drop-shadow-xl">
-            Choose Your Path — Frontend or Backend
-          </h1>
-          <p className="text-sm sm:text-xl text-white/90 mb-8">
-            Master full-stack development in our immersive 8-day bootcamp experience.
-          </p>
-          <motion.button
-            onClick={() => scrollTo(workshopsRef)}
-            className="bg-[#a517a5] hover:bg-[#8c0e90] text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition"
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.96 }}
-          >
-            Explore Bootcamps
-          </motion.button>
-        </motion.div>
-      </section>
+    {/* Hero Section */}
+<section className="flex items-center justify-center text-center sm:justify-start sm:text-start h-screen overflow-hidden relative">
+  {/* Responsive Background */}
+  <picture className="absolute inset-0 w-full h-full">
+    {/* Mobile */}
+    <source srcSet={BgPhone} media="(max-width: 640px)" />
+    {/* Tablet */}
+    <source srcSet={BgTablet} media="(max-width: 1024px)" />
+    {/* Desktop */}
+    <img
+      src={BgPc}
+      alt="Bootcamp background"
+      className="w-full h-full object-cover"
+    />
+  </picture>
+
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-black/50" />
+
+  {/* Hero Content */}
+  <motion.div
+    className="relative z-10 text-white px-6 sm:px-10 max-w-3xl"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+  >
+    <h1 className="text-3xl sm:text-5xl font-extrabold leading-tight mb-6 drop-shadow-xl">
+      Choose Your Path — Frontend or Backend
+    </h1>
+    <p className="text-sm sm:text-xl text-white/90 mb-8">
+      Master full-stack development in our immersive 8-day bootcamp experience.
+    </p>
+    <motion.button
+      onClick={() => scrollTo(workshopsRef)}
+      className="bg-[#FF0EC0] hover:bg-[#8c0e90] text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition"
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.96 }}
+    >
+      Explore Bootcamps
+    </motion.button>
+  </motion.div>
+</section>
 
       {/* Workshops Section */}
       <section
@@ -171,7 +185,7 @@ export function Home() {
         <div className="space-y-24">
           {/* Frontend Bootcamp */}
           <div>
-            <h3 className="text-2xl flex gap-2 items-center justify-center md:text-3xl font-bold text-[#a517a5] mb-10">
+            <h3 className="text-2xl flex gap-2 items-center justify-center md:text-3xl font-bold text-[#8a3ffb] mb-10">
               <Code2/> Frontend
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -185,7 +199,7 @@ export function Home() {
               ].map((w, i) => (
                 <motion.div
                   key={i}
-                  className="bg-gradient-to-br from-[#a041a3] to-[#8a2e8c] text-white rounded-2xl shadow-lg p-6 sm:p-8 hover:scale-[1.04] transition"
+                  className="bg-[#8a3ffb] text-white rounded-2xl shadow-lg p-6 sm:p-8 hover:scale-[1.04] transition"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -217,7 +231,7 @@ export function Home() {
               ].map((w, i) => (
                 <motion.div
                   key={i}
-                  className="bg-gradient-to-br from-[#3d1f66] to-[#2a1548] text-white rounded-2xl shadow-lg p-6 sm:p-8 hover:scale-[1.04] transition"
+                  className="bg-[#4B1A8A] text-white rounded-2xl shadow-lg p-6 sm:p-8 hover:scale-[1.04] transition"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -249,7 +263,7 @@ export function Home() {
           Pick your bootcamp, develop real projects, and become a professional developer in just 8 days!
         </p>
         <motion.button
-          className="bg-[#a517a5] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] shadow-lg transition"
+          className="bg-[#FB0EC0] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#8c0e90] shadow-lg transition"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => navigate("/register")}
@@ -265,13 +279,13 @@ export function Home() {
       >
         <h2 className="text-2xl font-bold mb-6 text-[#3d1f66]">Contact Us</h2>
         <div className="flex flex-wrap justify-center gap-6 text-base md:text-lg font-medium">
-          <a href="mailto:info@devbootcamp.com" className="flex gap-2 hover:text-[#a517a5] transition">
+          <a href="https://discord.gg/veSd5MU3" className="flex gap-2 hover:text-[#a517a5] transition">
             <MessageCircle/> Discord
           </a>
-          <a href="https://instagram.com" target="_blank" className="hover:text-[#a517a5] transition flex gap-2">
+          <a href="https://discord.gg/veSd5MU3" target="_blank" className="hover:text-[#a517a5] transition flex gap-2">
             <Instagram /> Instagram
           </a>
-          <a href="https://discord.com" target="_blank" className="flex gap-2 hover:text-[#a517a5] transition">
+          <a href="bitup2025@gmail.com" target="_blank" className="flex gap-2 hover:text-[#a517a5] transition">
             <Mail/> Email
           </a>
         </div>

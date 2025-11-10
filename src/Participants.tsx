@@ -65,7 +65,7 @@ export  function ParticipantsPage() {
    <div className="flex flex-col justify-start items-center min-h-screen bg-white p-4"> 
     
      <button onClick={()=>navigate("/")}
-        className="self-start mb-4 px-3 sm:px-4 py-2 bg-[#a517a5] backdrop-blur-sm text-white rounded-lg font-semibold hover:bg-[#8c0e90] transition"
+        className="self-start mb-4 px-3 sm:px-4 py-2 bg-[#FF0EC0] hover:bg-[#8c0e90] backdrop-blur-sm text-white rounded-lg font-semibold transition"
       >
         &larr; Back Home
       </button>

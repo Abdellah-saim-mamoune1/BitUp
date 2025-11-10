@@ -98,10 +98,10 @@ export function Register() {
       {/* Form Container */}
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-[450px] p-4 sm:p-6 rounded-xl shadow-2xl bg-gradient-to-br from-[#3d1f66] to-[#2a1548]"
+        className="w-full max-w-[450px] p-4 sm:p-6 rounded-xl shadow-2xl bg-[#4B1A8A]"
       >
         <h1 className="text-white text-lg sm:text-2xl md:text-3xl text-center mb-6 font-bold">
-          Registration Form
+          Join Us!
         </h1>
 
         <div className="space-y-3 sm:space-y-4">
