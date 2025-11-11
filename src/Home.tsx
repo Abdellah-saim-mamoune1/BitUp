@@ -15,7 +15,8 @@ import {
   Database,
   Server,
   Terminal,
-  X
+  X,
+  Link
 } from "lucide-react";
 import { Menu } from "lucide-react";
 import { Code2,Instagram, Mail, MessageCircle } from "lucide-react";
@@ -122,15 +123,15 @@ export function Home() {
       </nav>
 
       {/* Hero Section */}
-    {/* Hero Section */}
+   
 <section className="flex items-center justify-center text-center sm:justify-start sm:text-start h-screen overflow-hidden relative">
-  {/* Responsive Background */}
+  
   <picture className="absolute inset-0 w-full h-full">
-    {/* Mobile */}
+   
     <source srcSet={BgPhone} media="(max-width: 640px)" />
-    {/* Tablet */}
+   
     <source srcSet={BgTablet} media="(max-width: 1024px)" />
-    {/* Desktop */}
+  
     <img
       src={BgPc}
       alt="Bootcamp background"
@@ -138,7 +139,7 @@ export function Home() {
     />
   </picture>
 
-  {/* Overlay */}
+ 
   <div className="absolute inset-0 bg-black/50" />
 
   {/* Hero Content */}
@@ -282,14 +283,17 @@ export function Home() {
           <a href="https://discord.gg/veSd5MU3" className="flex gap-2 hover:text-[#a517a5] transition">
             <MessageCircle/> Discord
           </a>
-          <a href="https://discord.gg/veSd5MU3" target="_blank" className="hover:text-[#a517a5] transition flex gap-2">
+          <a href="https://www.instagram.com/bitup_2025?igsh=bmo0c3k4ZnZsNDRm" target="_blank" className="hover:text-[#a517a5] transition flex gap-2">
             <Instagram /> Instagram
           </a>
-          <a href="bitup2025@gmail.com" target="_blank" className="flex gap-2 hover:text-[#a517a5] transition">
+            <a href="https://linktr.ee/BitUp_2025" target="_blank" className="hover:text-[#a517a5] transition flex gap-2">
+            <Link /> Linktree
+          </a>
+          <a href="mailto:bitup2025@gmail.com" target="_blank" className="flex gap-2 hover:text-[#a517a5] transition">
             <Mail/> Email
           </a>
         </div>
-        <p className="text-gray-500 mt-8 text-sm">© 2025 DevBootcamp. All rights reserved.</p>
+        <p className="text-gray-500 mt-8 text-sm">© 2025 Bitup. All rights reserved.</p>
       </footer>
     </div>
   );
