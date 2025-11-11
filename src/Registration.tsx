@@ -25,35 +25,31 @@ export function Register() {
   const [loading, setLoading] = useState(false);
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
-  // ✅ Check localStorage for previous registration
   useEffect(() => {
-    const saved = localStorage.getItem("ParticipantRegistered");
+    const saved = localStorage.getItem("participantRegistered");
     if (saved) setAlreadyRegistered(true);
   }, []);
 
-  // --- Handle Input Changes ---
+
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // --- Workshop Checkbox ---
-  const handleWorkshopChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+   const handleWorkshopChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setForm((prev) => {
-      const id = value === "Frontend" ? 1 : 2;
-      const bootcampIds = prev.bootcampIds.includes(id)
-        ? prev.bootcampIds.filter((b) => b !== id)
-        : [...prev.bootcampIds, id];
-      return { ...prev, bootcampIds };
-    });
+    const id = value === "Frontend" ? 1 : 2;
+    
+    // Set bootcampIds to only contain the selected bootcamp
+    setForm((prev) => ({ ...prev, bootcampIds: [id] }));
   };
 
-  // --- Submit Form ---
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic validation
+   
     if (!form.fullName.trim() || !form.email.trim() || !form.motivation.trim()) {
       setMessage("Please fill in all required fields.");
       return;
@@ -72,8 +68,7 @@ export function Register() {
 
       console.log("Submitted data:", response.data);
 
-      // ✅ Save flag in localStorage to prevent multiple registrations
-      localStorage.setItem("ParticipantRegistered", JSON.stringify(form));
+      localStorage.setItem("participantRegistered", JSON.stringify(form));
 
       setMessage("Registration submitted successfully!");
       setAlreadyRegistered(true);
@@ -151,7 +146,7 @@ export function Register() {
                 <li key={ws}>
                   <label className="flex items-center gap-2 p-2 bg-white/10 rounded-lg cursor-pointer hover:bg-white/20 transition text-sm">
                     <input
-                      type="checkbox"
+                      type="radio"
                       value={ws}
                       checked={
                         ws === "Frontend"
@@ -181,7 +176,7 @@ export function Register() {
           />
         </div>
 
-        {/* ✅ Show message if already registered */}
+        {/* Show message if already registered */}
         {alreadyRegistered ? (
           <div className="mt-6 text-center bg-green-600 text-white py-3 rounded-lg font-semibold shadow-lg">
              You are already registered!
