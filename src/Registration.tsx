@@ -27,7 +27,7 @@ export function Register() {
 
   // ✅ Check localStorage for previous registration
   useEffect(() => {
-    const saved = localStorage.getItem("participantRegistered");
+    const saved = localStorage.getItem("ParticipantRegistered");
     if (saved) setAlreadyRegistered(true);
   }, []);
 
@@ -73,7 +73,7 @@ export function Register() {
       console.log("Submitted data:", response.data);
 
       // ✅ Save flag in localStorage to prevent multiple registrations
-      localStorage.setItem("participantRegistered", JSON.stringify(form));
+      localStorage.setItem("ParticipantRegistered", JSON.stringify(form));
 
       setMessage("Registration submitted successfully!");
       setAlreadyRegistered(true);
